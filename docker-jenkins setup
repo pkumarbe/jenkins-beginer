@@ -1,4 +1,11 @@
 docker run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts
 docker exec -it -u root jenkins bash
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+
+root@desktop:~/jenkins-learn-git# kubectl get po
+NAME                       READY   STATUS      RESTARTS   AGE
+jenkins-1-deployer-chfwj   0/1     Completed   0          13m
+jenkins-1-jenkins-0        1/1     Running     0          13m
+root@desktop:~/jenkins-learn-git# kubectl exec jenkins-1-jenkins-0 cat /var/jenkins_home/secrets/initialAdminPassword
+
   
