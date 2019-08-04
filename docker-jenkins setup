@@ -4,9 +4,18 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 Here jenkins is deployed on GCP (GKE with marketplace). Get the url form ingress.
 root@desktop:~/jenkins-learn-git# kubectl get po
-NAME                       READY   STATUS      RESTARTS   AGE
-jenkins-1-deployer-chfwj   0/1     Completed   0          13m
-jenkins-1-jenkins-0        1/1     Running     0          13m
+	NAME                       READY   STATUS      RESTARTS   AGE
+	jenkins-1-deployer-chfwj   0/1     Completed   0          13m
+	jenkins-1-jenkins-0        1/1     Running     0          13m
+
+root@desktop:~/jenkins-learn-git# kubectl get svc
+	NAME                                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+	jenkins-1-jenkins-agents-connector   ClusterIP   10.12.10.17   <none>        50000/TCP        45m
+	jenkins-1-jenkins-ui                 NodePort    10.12.9.227   <none>        8080:30990/TCP   45m
+	kubernetes                           ClusterIP   10.12.0.1     <none>        443/TCP          48m
+root@desktop:~/jenkins-learn-git# kubectl get ing
+	NAME                   HOSTS   ADDRESS          PORTS     AGE
+	jenkins-1-jenkins-ui   *       130.211.36.185   80, 443   45m
 
 get the jenkins paasword here-
  root@desktop:~/jenkins-learn-git# kubectl exec jenkins-1-jenkins-0 cat /var/jenkins_home/secrets/initialAdminPassword
