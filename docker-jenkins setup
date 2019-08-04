@@ -2,10 +2,40 @@ docker run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name jenk
 docker exec -it -u root jenkins bash
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
+Here jenkins is deployed on GCP (GKE with marketplace). Get the url form ingress.
 root@desktop:~/jenkins-learn-git# kubectl get po
 NAME                       READY   STATUS      RESTARTS   AGE
 jenkins-1-deployer-chfwj   0/1     Completed   0          13m
 jenkins-1-jenkins-0        1/1     Running     0          13m
-root@desktop:~/jenkins-learn-git# kubectl exec jenkins-1-jenkins-0 cat /var/jenkins_home/secrets/initialAdminPassword
 
+get the jenkins paasword here-
+ root@desktop:~/jenkins-learn-git# kubectl exec jenkins-1-jenkins-0 cat /var/jenkins_home/secrets/initialAdminPassword
+
+-------
+smaple pipleline -
+Create a file named as Jenkinfile and push it git after adding the below.
+#####
+pipeline {
+    agent any
+    stages {
+        stage('One') {
+                steps {
+                        echo 'Hi, Welcome jenkins CICD Demo'
+			
+                }
+        }
+    }
+}
+Enable the Jnkins wenhook on git repo-
+  http://130.211.36.185/github-webhook/
+####
+From Jenkins - 
+  1. Create a pipeline item. 
+  2. On Build trigger section 
+      Enable -> GitHub hook trigger for GITScm polling
+  3. On Pipeline section
+      Choose - Pipeline script fro SCM.
+      Provide the git repo URL
+        Ex- https://github.com/pkumarbe/jenkins-learn-git.git
+        script path - give the file name of the repo to be execute.
   
